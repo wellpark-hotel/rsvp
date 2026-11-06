@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>웰파크호텔 4성급 현판식 초청 RSVP</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 깃허브에 올린 Trajan Pro 폰트 적용 */
+    @font-face {
+      font-family: 'TrajanPro';
+      src: url('TrajanPro-Regular.ttf') format('truetype');
+    }
+
+    /* 전체 배경을 딥 모카 브라운으로 통일 */
+    body { font-family: 'Noto Sans KR', sans-serif; background-color: #1a130f; color: #EBE6DF; margin: 0; padding: 0; overflow-x: hidden; }
+    
+    /* 반짝이 파티클 기본 애니메이션 */
+    .sparkle { position: absolute; background: #D4AF37; box-shadow: 0 0 6px #D4AF37, 0 0 10px #F3E5AB; transform: rotate(45deg); animation: twinkle infinite alternate; border-radius: 50%; pointer-events: none; }
+    @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5) rotate(45deg); } 100% { opacity: 0.9; transform: scale(1.5) rotate(45deg); } }
+    
+    /* [본문용] 가장자리에만 흩뿌려지는 작은 반짝이 컨테이너 */
+    .edge-sparkle-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    
+    /* 인트로 스크린 */
+    #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #1a130f; cursor: pointer; transition: opacity 1.2s ease-in-out; }
+    
+    /* [인트로용] 화면 전체에 흩뿌려지는 풍성한 반짝이 컨테이너 */
+    .intro-sparkle-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
+    /* 인트로 & 메인 공통 순차적 골드 별 애니메이션 */
+    .intro-stars, .main-stars { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2; }
+    .official-star { width: 24px; height: 24px; fill: transparent; stroke: #D4AF37; stroke-width: 14; stroke-linejoin: miter; stroke-miterlimit: 4; opacity: 0; animation: goldGlow 4s infinite ease-in-out; overflow: visible; }
+    .official-star:nth-child(1) { animation-delay: 0s; }
+    .official-star:nth-child(2) { animation-delay: 0.3s; }
+    .official-star:nth-child(3) { animation-delay: 0.6s; }
+    .official-star:nth-child(4) { animation-delay: 0.9s; }
+    
+    @keyframes goldGlow { 
+      0%, 10% { opacity: 0.2; transform: scale(0.95); filter: drop-shadow(0 0 0px rgba(212,175,55,0)); } 
+      30%, 70% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 10px rgba(212,175,55,0.7)); } 
+      90%, 100% { opacity: 0.2; transform: scale(0.95); filter: drop-shadow(0 0 0px rgba(212,175,55,0)); } 
+    }
+    
+    /* 인트로 타이틀 */
+    .intro-title { font-family: 'TrajanPro', 'Noto Serif KR', serif; font-size: 20px; color: #D4AF37; margin: 0; letter-spacing: 2px; text-shadow: 0 0 15px rgba(212,175,55,0.4); position: relative; z-index: 2; }
+    .intro-text { color: #8A7B70; font-family: 'Noto Serif KR', serif; font-size: 11px; letter-spacing: 2px; margin-top: 35px; animation: pulse 2.5s infinite; position: relative; z-index: 2; }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    .intro-hide { opacity: 0; pointer-events: none; }
+
+    /* 메인 콘텐츠 래퍼 */
+    .mobile-wrapper { max-width: 480px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 10; padding: 60px 30px 80px; box-sizing: border-box; }
+    
+    .main-title { font-family: 'TrajanPro', 'Noto Serif KR', serif; font-size: 18px; color: #D4AF37; text-align: center; margin: 0 0 30px 0; letter-spacing: 2px; }
+    
+    /* 아치형 사진 프레임 */
+    .arch-photo-container { position: relative; width: 80%; margin: 0 auto 40px; padding: 4px; border: 1px solid rgba(212,175,55,0.3); border-radius: 150px 150px 0 0; background: rgba(0,0,0,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    /* 이미지가 확대되어도 아치형 테두리를 벗어나지 않도록 감싸는 영역 */
+    .arch-photo-wrapper { width: 100%; border-radius: 144px 144px 0 0; overflow: hidden; }
+    /* 이미지 확대 및 위치 조정 핵심 클래스 */
+    .arch-photo { 
+      width: 100%; display: block; 
+      object-fit: cover; 
+      aspect-ratio: 4/5; opacity: 0.9; 
+      transform: scale(1.14); /* 1.25배 확대 */
+      transform-origin: center top; /* 윗부분(하늘)을 기준으로 확대 */
+      object-position: center 45%; /* 0%에 가까울수록 하늘이, 100%에 가까울수록 땅이 보임 */
+    }
+    
+    .invitation-text { text-align: center; margin-bottom: 40px; }
+    .invitation-text h2 { font-family: 'Noto Serif KR', serif; color: #F3E5AB; font-weight: 400; font-size: 21px; margin: 0 0 25px; line-height: 1.5; letter-spacing: 1px; }
+    .invitation-text .greeting { font-size: 14.5px; line-height: 2; color: #DED3C4; margin-bottom: 40px; font-weight: 300; }
+    
+    /* 행사 정보 박스 */
+    .info { width: 100%; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(212,175,55,0.2); border-bottom: 1px solid rgba(212,175,55,0.2); padding: 25px 0; margin: 0 auto; text-align: center; border-radius: 4px; }
+    .info p { margin: 12px 0; font-size: 14.5px; color: #EBE6DF; display: flex; justify-content: center; align-items: center; }
+    .info strong { display: inline-block; width: 45px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 10px; }
+    .info span { display: inline-block; width: 190px; text-align: left; word-break: keep-all; font-weight: 300; }
+    
+    .form-divider { border-top: 1px dashed rgba(212,175,55,0.3); margin: 45px 0; }
+    
+    /* 폼 영역 */
+    form { position: relative; z-index: 10; }
+    .form-group { margin-bottom: 25px; width: 100%; }
+    .input-line { display: flex; align-items: center; width: 100%; }
+    .input-line label { width: 85px; min-width: 85px; flex-shrink: 0; white-space: nowrap; font-weight: 400; font-size: 14.5px; color: #D4AF37; }
+    .input-line input[type="text"], .input-line input[type="number"] { flex: 1; min-width: 0; width: 100%; border: none; border-bottom: 1px solid rgba(212,175,55,0.4); padding: 10px 5px; font-size: 15px; background: transparent; outline: none; color: #FFF; transition: 0.3s; box-sizing: border-box; font-weight: 300; }
+    .input-line input:focus { border-bottom: 1px solid #D4AF37; }
+    .guide-text { font-size: 11.5px; color: #8A7B70; margin-top: 8px; margin-left: 85px; word-break: keep-all; }
+    
+    .radio-group { display: flex; align-items: center; margin-bottom: 35px; width: 100%; }
+    .radio-group .title { width: 85px; min-width: 85px; flex-shrink: 0; white-space: nowrap; font-weight: 400; font-size: 14.5px; color: #D4AF37; }
+    .radio-options { display: flex; gap: 25px; flex: 1; }
+    .radio-options label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14.5px; color: #EBE6DF; white-space: nowrap; font-weight: 300; }
+    .radio-options input[type="radio"] { accent-color: #D4AF37; width: 16px; height: 16px; cursor: pointer; }
+    
+    button { width: 100%; padding: 18px; margin-top: 10px; background-color: #D4AF37; color: #1a130f; border: none; font-size: 15.5px; font-weight: 600; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; transition: 0.3s; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
+    button:hover:not(:disabled) { background-color: #F3E5AB; }
+    button:disabled { background-color: #8A7B70; color: #CCC; cursor: wait; box-shadow: none; }
+    
+    .deadline-notice { text-align: center; font-size: 13px; color: #8A7B70; margin-top: 25px; line-height: 1.6; }
+    
+    /* 로고 필터 */
+    .logo-bottom { width: 100px; display: block; margin: 60px auto 0; opacity: 0.5; filter: brightness(0) invert(1) sepia(1) hue-rotate(10deg) saturate(3) brightness(0.8); }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- [본문용] 가장자리에만 흩뿌려지는 작고 섬세한 골드 파티클 -->
+  <div class="edge-sparkle-container">
+    <div class="sparkle" style="top: 5%; left: 3%; width: 1.5px; height: 1.5px; animation-duration: 2.1s; animation-delay: 0.1s;"></div>
+    <div class="sparkle" style="top: 18%; left: 6%; width: 1px; height: 1px; animation-duration: 3.2s; animation-delay: 1.5s;"></div>
+    <div class="sparkle" style="top: 35%; left: 2%; width: 2px; height: 2px; animation-duration: 2.8s; animation-delay: 0.4s;"></div>
+    <div class="sparkle" style="top: 50%; left: 7%; width: 1.5px; height: 1.5px; animation-duration: 3.5s; animation-delay: 1.2s;"></div>
+    <div class="sparkle" style="top: 70%; left: 3%; width: 1px; height: 1px; animation-duration: 2.3s; animation-delay: 0.8s;"></div>
+    <div class="sparkle" style="top: 85%; left: 6%; width: 2px; height: 2px; animation-duration: 3.1s; animation-delay: 0.3s;"></div>
+    <div class="sparkle" style="top: 95%; left: 2%; width: 1.5px; height: 1.5px; animation-duration: 3.4s; animation-delay: 1.8s;"></div>
+    
+    <div class="sparkle" style="top: 8%; right: 4%; width: 2px; height: 2px; animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+    <div class="sparkle" style="top: 22%; right: 2%; width: 1.5px; height: 1.5px; animation-duration: 3.6s; animation-delay: 1.1s;"></div>
+    <div class="sparkle" style="top: 40%; right: 6%; width: 1px; height: 1px; animation-duration: 2.4s; animation-delay: 0.7s;"></div>
+    <div class="sparkle" style="top: 55%; right: 3%; width: 2px; height: 2px; animation-duration: 3.2s; animation-delay: 1.4s;"></div>
+    <div class="sparkle" style="top: 75%; right: 5%; width: 1.5px; height: 1.5px; animation-duration: 2.7s; animation-delay: 0.5s;"></div>
+    <div class="sparkle" style="top: 88%; right: 2%; width: 1px; height: 1px; animation-duration: 3.8s; animation-delay: 1.9s;"></div>
+    <div class="sparkle" style="top: 98%; right: 4%; width: 1.5px; height: 1.5px; animation-duration: 3.1s; animation-delay: 1.3s;"></div>
+  </div>
+
+  <!-- 인트로 스크린 -->
+  <div id="intro-screen" onclick="openInvitation()">
+    <!-- [인트로용] 화면 중앙까지 꽉 차게 흩뿌려지는 풍성한 파티클 -->
+    <div class="intro-sparkle-container">
+      <div class="sparkle" style="top: 15%; left: 20%; width: 2px; height: 2px; animation-duration: 2.5s; animation-delay: 0.3s;"></div>
+      <div class="sparkle" style="top: 25%; left: 80%; width: 2.5px; height: 2.5px; animation-duration: 3.1s; animation-delay: 1.1s;"></div>
+      <div class="sparkle" style="top: 35%; left: 35%; width: 1.5px; height: 1.5px; animation-duration: 2.2s; animation-delay: 0.8s;"></div>
+      <div class="sparkle" style="top: 42%; left: 75%; width: 3px; height: 3px; animation-duration: 3.8s; animation-delay: 0.2s;"></div>
+      <div class="sparkle" style="top: 55%; left: 25%; width: 2px; height: 2px; animation-duration: 2.9s; animation-delay: 1.4s;"></div>
+      <div class="sparkle" style="top: 65%; left: 65%; width: 2.5px; height: 2.5px; animation-duration: 3.4s; animation-delay: 0.7s;"></div>
+      <div class="sparkle" style="top: 80%; left: 45%; width: 1.5px; height: 1.5px; animation-duration: 2.6s; animation-delay: 1.2s;"></div>
+    </div>
+
+    <!-- 순서대로 반짝이는 4성급 골드 별 -->
+    <div class="intro-stars">
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+    </div>
+    <h1 class="intro-title">INVITATION</h1>
+    <div class="intro-text">화면을 터치하여 열기</div>
+  </div>
+
+  <!-- 메인 초대장 내용 -->
+  <div class="mobile-wrapper">
+    <h1 class="main-title fade-in">INVITATION</h1>
+    
+    <div class="arch-photo-container fade-in">
+      <div class="arch-photo-wrapper">
+        <img src="main.jpg" alt="웰파크호텔 전경" class="arch-photo">
+      </div>
+    </div>
+
+    <div class="main-stars fade-in">
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+      <svg viewBox="0 0 100 100" class="official-star"><path d="M 50,5 Q 62,38 95,38 Q 74,56 79,90 Q 50,70 21,90 Q 26,56 5,38 Q 38,38 50,5 Z"/></svg>
+    </div>
+    
+    <div class="invitation-text fade-in">
+      <h2>웰파크호텔<br>4성급 획득 기념 현판식</h2>
+      <p class="greeting">
+        고창 웰파크호텔이 여러분의 성원에 힘입어<br>
+        4성급 호텔로 새롭게 도약합니다.<br>
+        그 뜻깊은 시작을 알리는 현판식에<br>
+        귀하를 정중히 모시고자 합니다.
+      </p>
+    </div>
+    
+    <div class="info fade-in">
+      <p><strong>일시</strong> <span>2026년 12월 16일 수요일 11시</span></p>
+      <p><strong>장소</strong> <span>웰파크호텔 컨벤션홀</span></p>
+      <p><strong>문의</strong> <span>063-560-3333</span></p>
+    </div>
+
+    <div class="form-divider fade-in"></div>
+    
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { alert('성공적으로 회신되었습니다. 현판식에서 뵙겠습니다.'); window.location.reload(); }"></iframe>
+    
+    <form name="rsvp-form" method="POST" action="https://script.google.com/macros/s/AKfycbyoIFW8dsLGgdczTAKP8s0UTXDOqbT4L1npyi5GkntkVkUuOus7rwpAbfn6zXOlvlOblQ/exec" target="hidden_iframe" onsubmit="return handleSubmit(this);">
+      <div class="form-group fade-in">
+        <div class="input-line"><label>소속기관</label><input type="text" name="company" required></div>
+        <div class="guide-text">* 소속되어 계신 기관 또는 기업명을 적어주세요.</div>
+      </div>
+      <div class="form-group fade-in">
+        <div class="input-line"><label>성함</label><input type="text" name="name" required></div>
+      </div>
+      <div class="form-group fade-in">
+        <div class="input-line"><label>직함</label><input type="text" name="title" required></div>
+      </div>
+      <div class="radio-group fade-in">
+        <div class="title">참석 여부</div>
+        <div class="radio-options">
+          <label><input type="radio" name="attendance" value="참석" required> 참석</label>
+          <label><input type="radio" name="attendance" value="불참"> 불참</label>
+        </div>
+      </div>
+      <div class="form-group fade-in">
+        <div class="input-line"><label>수행원 수</label><input type="number" name="guests" min="0" required></div>
+        <div class="guide-text">* 동행하시는 수행원이 없으실 경우 '0'으로 기재 부탁드립니다.</div>
+      </div>
+      <button type="submit" id="submit-btn" class="fade-in">회신 보내기</button>
+      <div class="deadline-notice fade-in">원활한 행사 준비를 위해 12월 1일(화)까지<br>회신 부탁드립니다.</div>
+    </form>
+
+    <img src="로고%20png.png" alt="웰파크호텔 로고" class="logo-bottom fade-in">
+  </div>
+  
+  <script>
+    function openInvitation() {
+      var intro = document.getElementById('intro-screen');
+      intro.style.opacity = '0';
+      setTimeout(function() {
+        intro.classList.add('intro-hide');
+      }, 1200);
+    }
+
+    var submitted = false;
+    function handleSubmit(form) {
+      submitted = true;
+      var btn = document.getElementById('submit-btn');
+      btn.disabled = true; 
+      btn.innerHTML = '안전하게 전송 중입니다...';
+      return true;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 }); 
+      
+      document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+    });
+  </script>
+</body>
+</html>
