@@ -58,14 +58,14 @@
     
     /* 아치형 사진 프레임 */
     .arch-photo-container { position: relative; width: 80%; margin: 0 auto 40px; padding: 4px; border: 1px solid rgba(212,175,55,0.3); border-radius: 150px 150px 0 0; background: rgba(0,0,0,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    /* 이미지가 확대되어도 아치형 테두리를 벗어나지 않도록 감싸는 영역 */
     .arch-photo-wrapper { width: 100%; border-radius: 144px 144px 0 0; overflow: hidden; }
-    /* 이미지 확대 및 위치 조정 핵심 클래스 */
+    
+    /* 사용자가 직접 수정한 이미지 비율 및 위치 세팅 */
     .arch-photo { 
       width: 100%; display: block; 
       object-fit: cover; 
       aspect-ratio: 4/5; opacity: 0.9; 
-      transform: scale(1.14); /* 1.25배 확대 */
+      transform: scale(1.14); /* 1.14배 확대 */
       transform-origin: center top; /* 윗부분(하늘)을 기준으로 확대 */
       object-position: center 45%; /* 0%에 가까울수록 하늘이, 100%에 가까울수록 땅이 보임 */
     }
@@ -74,11 +74,11 @@
     .invitation-text h2 { font-family: 'Noto Serif KR', serif; color: #F3E5AB; font-weight: 400; font-size: 21px; margin: 0 0 25px; line-height: 1.5; letter-spacing: 1px; }
     .invitation-text .greeting { font-size: 14.5px; line-height: 2; color: #DED3C4; margin-bottom: 40px; font-weight: 300; }
     
-    /* 행사 정보 박스 */
+    /* 행사 정보 박스 (Attire 추가를 위해 좌우 폭 미세 조정) */
     .info { width: 100%; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(212,175,55,0.2); border-bottom: 1px solid rgba(212,175,55,0.2); padding: 25px 0; margin: 0 auto; text-align: center; border-radius: 4px; }
     .info p { margin: 12px 0; font-size: 14.5px; color: #EBE6DF; display: flex; justify-content: center; align-items: center; }
-    .info strong { display: inline-block; width: 45px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 10px; }
-    .info span { display: inline-block; width: 190px; text-align: left; word-break: keep-all; font-weight: 300; }
+    .info strong { display: inline-block; width: 50px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 10px; }
+    .info span { display: inline-block; width: 185px; text-align: left; word-break: keep-all; font-weight: 300; }
     
     .form-divider { border-top: 1px dashed rgba(212,175,55,0.3); margin: 45px 0; }
     
@@ -89,6 +89,7 @@
     .input-line label { width: 85px; min-width: 85px; flex-shrink: 0; white-space: nowrap; font-weight: 400; font-size: 14.5px; color: #D4AF37; }
     .input-line input[type="text"], .input-line input[type="number"] { flex: 1; min-width: 0; width: 100%; border: none; border-bottom: 1px solid rgba(212,175,55,0.4); padding: 10px 5px; font-size: 15px; background: transparent; outline: none; color: #FFF; transition: 0.3s; box-sizing: border-box; font-weight: 300; }
     .input-line input:focus { border-bottom: 1px solid #D4AF37; }
+    .input-line input::placeholder { color: rgba(255,255,255,0.2); }
     .guide-text { font-size: 11.5px; color: #8A7B70; margin-top: 8px; margin-left: 85px; word-break: keep-all; }
     
     .radio-group { display: flex; align-items: center; margin-bottom: 35px; width: 100%; }
@@ -183,9 +184,10 @@
     </div>
     
     <div class="info fade-in">
-      <p><strong>일시</strong> <span>2026년 12월 16일 수요일 11시</span></p>
+      <p><strong>일시</strong> <span>2026년 12월 16일 수요일 오후 3시</span></p>
       <p><strong>장소</strong> <span>웰파크호텔 컨벤션홀</span></p>
       <p><strong>문의</strong> <span>063-560-3333</span></p>
+      <p><strong>Attire</strong> <span style="font-size: 13.5px;">Business formal / Military Uniform</span></p>
     </div>
 
     <div class="form-divider fade-in"></div>
