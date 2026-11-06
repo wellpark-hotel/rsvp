@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
   
   <style>
-    /* 깃허브에 올린 Trajan Pro 폰트 적용 */
+    /* Trajan Pro 폰트 적용 */
     @font-face {
       font-family: 'TrajanPro';
       src: url('TrajanPro-Regular.ttf') format('truetype');
@@ -60,7 +60,7 @@
     .arch-photo-container { position: relative; width: 80%; margin: 0 auto 40px; padding: 4px; border: 1px solid rgba(212,175,55,0.3); border-radius: 150px 150px 0 0; background: rgba(0,0,0,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .arch-photo-wrapper { width: 100%; border-radius: 144px 144px 0 0; overflow: hidden; }
     
-    /* 사용자가 직접 수정한 이미지 비율 및 위치 세팅 */
+    /* 이미지 비율 및 위치 세팅 */
     .arch-photo { 
       width: 100%; display: block; 
       object-fit: cover; 
@@ -74,11 +74,13 @@
     .invitation-text h2 { font-family: 'Noto Serif KR', serif; color: #F3E5AB; font-weight: 400; font-size: 21px; margin: 0 0 25px; line-height: 1.5; letter-spacing: 1px; }
     .invitation-text .greeting { font-size: 14.5px; line-height: 2; color: #DED3C4; margin-bottom: 40px; font-weight: 300; }
     
-    /* 행사 정보 박스 */
+    /* 행사 정보 박스 (텍스트가 한 줄에 들어가도록 너비 변경) */
     .info { width: 100%; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(212,175,55,0.2); border-bottom: 1px solid rgba(212,175,55,0.2); padding: 25px 0; margin: 0 auto; text-align: center; border-radius: 4px; }
     .info p { margin: 12px 0; font-size: 14.5px; color: #EBE6DF; display: flex; justify-content: center; align-items: center; }
-    .info strong { display: inline-block; width: 50px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 10px; }
-    .info span { display: inline-block; width: 185px; text-align: left; word-break: keep-all; font-weight: 300; }
+    /* 제목(일시, 장소 등) 영역 설정 */
+    .info strong { display: inline-block; width: 45px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 15px; flex-shrink: 0; }
+    /* 내용(시간, Attire 등) 영역 가로폭을 넓혀 줄바꿈 방지 */
+    .info span { display: inline-block; width: 240px; text-align: left; word-break: keep-all; font-weight: 300; }
     
     .form-divider { border-top: 1px dashed rgba(212,175,55,0.3); margin: 45px 0; }
     
@@ -192,7 +194,7 @@
 
     <div class="form-divider fade-in"></div>
     
-    <!-- 방금 알려주신 새 스크립트 주소가 반영된 폼 액션 -->
+    <!-- 참석 여부에 따라 메시지를 다르게 띄우기 위해 onload 속성 변경 -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showResult(); }"></iframe>
     
     <form name="rsvp-form" method="POST" action="https://script.google.com/macros/s/AKfycbwZWDrfDPsTuzKOX3g9NSvp2FKnrh88Rsfy_DIg1Dt26ugVkoHlqdjxF3knji7J9MSZYg/exec" target="hidden_iframe" onsubmit="return handleSubmit(this);">
