@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
   
   <style>
-    /* Trajan Pro 폰트 적용 */
+    /* 깃허브에 올린 Trajan Pro 폰트 적용 */
     @font-face {
       font-family: 'TrajanPro';
       src: url('TrajanPro-Regular.ttf') format('truetype');
@@ -60,7 +60,7 @@
     .arch-photo-container { position: relative; width: 80%; margin: 0 auto 40px; padding: 4px; border: 1px solid rgba(212,175,55,0.3); border-radius: 150px 150px 0 0; background: rgba(0,0,0,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .arch-photo-wrapper { width: 100%; border-radius: 144px 144px 0 0; overflow: hidden; }
     
-    /* 이미지 비율 및 위치 세팅 */
+    /* 사용자가 직접 수정한 이미지 비율 및 위치 세팅 */
     .arch-photo { 
       width: 100%; display: block; 
       object-fit: cover; 
@@ -74,12 +74,10 @@
     .invitation-text h2 { font-family: 'Noto Serif KR', serif; color: #F3E5AB; font-weight: 400; font-size: 21px; margin: 0 0 25px; line-height: 1.5; letter-spacing: 1px; }
     .invitation-text .greeting { font-size: 14.5px; line-height: 2; color: #DED3C4; margin-bottom: 40px; font-weight: 300; }
     
-    /* 행사 정보 박스 (텍스트가 한 줄에 들어가도록 너비 변경) */
+    /* 행사 정보 박스 */
     .info { width: 100%; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(212,175,55,0.2); border-bottom: 1px solid rgba(212,175,55,0.2); padding: 25px 0; margin: 0 auto; text-align: center; border-radius: 4px; }
     .info p { margin: 12px 0; font-size: 14.5px; color: #EBE6DF; display: flex; justify-content: center; align-items: center; }
-    /* 제목(일시, 장소 등) 영역 설정 */
-    .info strong { display: inline-block; width: 45px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 15px; flex-shrink: 0; }
-    /* 내용(시간, Attire 등) 영역 가로폭을 넓혀 줄바꿈 방지 */
+    .info strong { display: inline-block; width: 50px; color: #D4AF37; font-weight: 400; text-align: left; margin-right: 10px; flex-shrink: 0; }
     .info span { display: inline-block; width: 240px; text-align: left; word-break: keep-all; font-weight: 300; }
     
     .form-divider { border-top: 1px dashed rgba(212,175,55,0.3); margin: 45px 0; }
@@ -235,6 +233,39 @@
       }, 1200);
     }
 
+    // 문서가 로드되면 참석 여부 라디오 버튼 이벤트를 설정
+    document.addEventListener("DOMContentLoaded", function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 }); 
+      
+      document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+      // ★ 불참 선택 시 수행원 수 입력 방지 로직 ★
+      var attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+      var guestsInput = document.querySelector('input[name="guests"]');
+
+      attendanceRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          if (this.value === '불참') {
+            guestsInput.value = '0';
+            guestsInput.disabled = true;
+            guestsInput.style.borderBottom = '1px solid rgba(212,175,55,0.1)';
+            guestsInput.style.color = '#8A7B70';
+          } else {
+            guestsInput.value = '';
+            guestsInput.disabled = false;
+            guestsInput.style.borderBottom = '1px solid rgba(212,175,55,0.4)';
+            guestsInput.style.color = '#FFF';
+          }
+        });
+      });
+    });
+
     var submitted = false;
     var attendanceValue = '참석'; // 기본값
 
@@ -246,6 +277,10 @@
         attendanceValue = selected.value;
       }
       
+      // 구글 시트로 값이 넘어갈 수 있도록 비활성화된 수행원 수 칸을 전송 직전 활성화
+      var guestsInput = form.querySelector('input[name="guests"]');
+      guestsInput.disabled = false;
+      
       var btn = document.getElementById('submit-btn');
       btn.disabled = true; 
       btn.innerHTML = '안전하게 전송 중입니다...';
@@ -255,24 +290,12 @@
     // 제출 완료 후 참석 여부에 따라 알림창 분리
     function showResult() {
       if(attendanceValue === '불참') {
-        alert('회신이 완료되었습니다. 귀한 시간 내어 회신해주셔서 감사합니다.');
+        alert('회신이 완료되었습니다. 바쁘신 중에도 귀한 시간 내어 회신해주셔서 감사합니다.');
       } else {
-        alert('성공적으로 회신되었습니다. 현판식 자리에서 뵙겠습니다.');
+        alert('성공적으로 회신되었습니다. 뜻깊은 현판식 자리에서 뵙겠습니다.');
       }
       window.location.reload();
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1 }); 
-      
-      document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
-    });
   </script>
 </body>
 </html>
